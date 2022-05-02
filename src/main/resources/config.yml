@@ -1,0 +1,22 @@
+# The version of the plugin and configuration
+Version: 1.0
+
+settings:
+  # Kick all the player when you on the antijoin function
+  kick-when-on: false
+
+messages:
+  commands:
+    top: '&7&m                               '
+    help: '&b/antijoin help View help'
+    toggle: '&b/antijoin toggle on/off anti join'
+    kick: '&b/antijoin kick Kick the player who has no permission'
+    reload: '&b/antijoin reload Reload configuration'
+    bottom: '&7&m                               '
+  no-perm: '&cYou do not have permission'
+  anti-join: '&cThe server is not allow to join now. Please wait for a moment!'
+  toggle-off: '&cYou off the AntiJoin!'
+  toggle-on: '&aYou on the AntiJoin!'
+  not-on: '&cYou did not on the AntiJoin'
+  kick-success: '&aYou kicked all the player!'
+  reload-success: '&aConfiguration reloaded successful!'

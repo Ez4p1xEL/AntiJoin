@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="AntiJoin">
+    <output-path>$PROJECT_DIR$/out/artifacts/AntiJoin</output-path>
+    <root id="archive" name="AntiJoin.jar">
+      <element id="module-output" name="AntiJoin" />
+    </root>
+  </artifact>
+</component>
