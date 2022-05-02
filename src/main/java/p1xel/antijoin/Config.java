@@ -8,6 +8,8 @@ public class Config {
         return AntiJoin.getInstance().getConfig().getString(path);
     }
 
+    public static int getInt(String path) { return AntiJoin.getInstance().getConfig().getInt(path); }
+
     public static String getMessage(String path) {
         return ChatColor.translateAlternateColorCodes('&', getString(path));
     }

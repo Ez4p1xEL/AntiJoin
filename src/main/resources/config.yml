@@ -8,7 +8,13 @@ settings:
 motd:
   enable: true
   line1: '&cYou cannot join the server now.'
-  line2: '&cPlease wait a few minutes!'
+  line2: '&cPlease wait for a few minutes!'
+  maxplayer:
+    enable: true
+    amount: -666
+  icon:
+    enable: true
+    image: logo.png
 
 messages:
   commands:
