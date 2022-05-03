@@ -17,9 +17,11 @@ public class Listener implements org.bukkit.event.Listener {
     @EventHandler
     public void onJoin(PlayerLoginEvent e) {
 
+        boolean isAntiJoin = IDK.getAntiJoin();
+
         Player p = e.getPlayer();
 
-        if (!AntiJoin.isAntiJoin) {
+        if (!isAntiJoin) {
             return;
         }
 
@@ -31,6 +33,10 @@ public class Listener implements org.bukkit.event.Listener {
             return;
         }
 
+        if (WhiteList.getWhiteList().contains(p.getName())) {
+            return;
+        }
+
         e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
         e.setKickMessage(Config.getMessage("messages.anti-join"));
 
@@ -39,7 +45,9 @@ public class Listener implements org.bukkit.event.Listener {
     @EventHandler
     public void onWTF(ServerListPingEvent e) {
 
-        if (AntiJoin.isAntiJoin) {
+        boolean isAntiJoin = IDK.getAntiJoin();
+
+        if (isAntiJoin) {
 
             if (Config.getBool("motd.enable")) {
 

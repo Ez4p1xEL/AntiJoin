@@ -10,15 +10,17 @@ public class AntiJoin extends JavaPlugin {
 
     public static AntiJoin getInstance() {return instance;}
 
-    public static boolean isAntiJoin = false;
-
     @Override
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
         getConfig().set("Version", getDescription().getVersion());
+        WhiteList.createWhiteListFile();
+        IDK.createIDKFile();
 
         getServer().getPluginManager().registerEvents(new Listener(),this);
         getServer().getPluginCommand("AntiJoin").setExecutor(new Cmd());
     }
+
+
 }

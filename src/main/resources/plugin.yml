@@ -1,6 +1,6 @@
 name: AntiJoin
 main: p1xel.antijoin.AntiJoin
-version: 1.0
+version: 1.3
 api-version: 1.18
 commands:
   antijoin:

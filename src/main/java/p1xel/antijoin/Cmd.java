@@ -14,6 +14,8 @@ public class Cmd implements CommandExecutor {
     @ParametersAreNonnullByDefault
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+        boolean isAntiJoin = IDK.getAntiJoin();
+
         if (args.length == 0) {
             if (sender.hasPermission("antijoin.use")) {
                 sender.sendMessage(Config.getMessage("messages.commands.help"));
@@ -37,6 +39,9 @@ public class Cmd implements CommandExecutor {
                 sender.sendMessage(Config.getMessage("messages.commands.help"));
                 sender.sendMessage(Config.getMessage("messages.commands.toggle"));
                 sender.sendMessage(Config.getMessage("messages.commands.kick"));
+                sender.sendMessage(Config.getMessage("messages.commands.add"));
+                sender.sendMessage(Config.getMessage("messages.commands.del"));
+                sender.sendMessage(Config.getMessage("messages.commands.clear"));
                 sender.sendMessage(Config.getMessage("messages.commands.reload"));
                 sender.sendMessage(Config.getMessage("messages.commands.bottom"));
                 return true;
@@ -45,15 +50,15 @@ public class Cmd implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("toggle")) {
 
-                if (AntiJoin.isAntiJoin) {
+                if (isAntiJoin) {
 
-                    AntiJoin.isAntiJoin = false;
+                    IDK.setAntiJoin(false);
                     sender.sendMessage(Config.getMessage("messages.toggle-off"));
                     return true;
 
                 } else {
 
-                    AntiJoin.isAntiJoin = true;
+                    IDK.setAntiJoin(true);
                     sender.sendMessage(Config.getMessage("messages.toggle-on"));
 
                     if (Config.getBool("settings.kick-when-on")) {
@@ -75,12 +80,14 @@ public class Cmd implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("kick")) {
 
-                if (AntiJoin.isAntiJoin) {
+                if (isAntiJoin) {
 
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (!p.isOp()) {
                             if (!p.hasPermission("antijoin.bypass")) {
-                                p.kickPlayer(Config.getMessage("messages.anti-join"));
+                                if (!WhiteList.getWhiteList().contains(p.getName())) {
+                                    p.kickPlayer(Config.getMessage("messages.anti-join"));
+                                }
                             }
                         }
                     }
@@ -96,6 +103,14 @@ public class Cmd implements CommandExecutor {
 
             }
 
+            if (args[0].equalsIgnoreCase("clear")) {
+
+                WhiteList.clearList();
+                sender.sendMessage(Config.getMessage("messages.clear-success"));
+                return true;
+
+            }
+
             if (args[0].equalsIgnoreCase("reload")) {
 
                 AntiJoin.getInstance().reloadConfig();
@@ -104,6 +119,42 @@ public class Cmd implements CommandExecutor {
 
             }
 
+
+
+        }
+
+        if (args.length == 2) {
+
+            if (!sender.hasPermission("antijoin.use")) {
+                sender.sendMessage(Config.getMessage("messages.no-perm"));
+                return true;
+            }
+
+            if (args[0].equalsIgnoreCase("add")) {
+
+                if (WhiteList.getWhiteList().contains(args[1])) {
+                    sender.sendMessage(Config.getMessage("messages.already-exists"));
+                    return true;
+                }
+
+                WhiteList.addToList(args[1]);
+                sender.sendMessage(Config.getMessage("messages.add-success").replaceAll("%player%", args[1]));
+                return true;
+
+            }
+
+            if (args[0].equalsIgnoreCase("del")) {
+
+                if (!WhiteList.getWhiteList().contains(args[1])) {
+                    sender.sendMessage(Config.getMessage("messages.not-in-list"));
+                    return true;
+                }
+
+                WhiteList.delFromList(args[1]);
+                sender.sendMessage(Config.getMessage("messages.del-success").replaceAll("%player%", args[1]));
+                return true;
+
+            }
 
 
         }
