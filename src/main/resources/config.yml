@@ -5,9 +5,6 @@ settings:
   # Kick all the player when you on the antijoin function
   kick-when-on: false
 
-cache:
-  AntiJoin: false
-
 motd:
   enable: true
   line1: '&cYou cannot join the server now.'
