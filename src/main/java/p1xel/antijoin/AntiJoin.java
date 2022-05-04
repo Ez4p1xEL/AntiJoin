@@ -14,7 +14,6 @@ public class AntiJoin extends JavaPlugin {
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
-        getConfig().set("Version", getDescription().getVersion());
         WhiteList.createWhiteListFile();
         IDK.createIDKFile();
 
